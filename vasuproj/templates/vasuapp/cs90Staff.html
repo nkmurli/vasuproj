@@ -1,0 +1,72 @@
+{% extends "vasuapp/ibmcs90home.html" %}
+{% block content %}
+       <table  id="t1">
+         {% if dm > 0 %}
+       <h6> Emplyees under  {{dm_name}} </h6>    
+         <thead>        
+            <th> Emp-ID </th>
+            <th> Emp-Name </th>
+            <th> Budget-Area </th>
+            <th> IBM-Mail-ID </th>
+            <th> Office-Number </th>
+            <th> Mobile-Number </th>
+            <th> Client-Mail-ID </th>
+         </thead>
+         {% for emp in employees %}
+           <tr>
+      	      <td>{{emp.Eno}}</td>
+     	      <td> {{emp.Ename}}</td>
+     	      <td>{{emp.BudgetArea}}</td>
+     	      <td>{{emp.IBMMailID}}</td>
+     	      <td>{{emp.OfficeNumber}}</td>
+     	      <td>{{emp.MobileNumber}}</td>
+     	      <td>{{emp.ClientMailID}}</td>
+  	      </tr>
+  
+     	  {% endfor %}
+    </table>
+         {% else %}
+            {% regroup employees by DMName as DM_list %}
+              {% for DMName in DM_list %}
+               <h6>Emplyees under  {{DMName.grouper}} </h6>
+             <table id="t2">
+                 <thead>        
+		            <th width="90"> Emp-ID </th>
+        		    <th width="200"> Emp-Name </th>
+            		<th width="200"> Budget-Area </th>
+            		<th width="250"> IBM-Mail-ID </th>
+            		<th width="100"> Office-Number </th>
+            		<th width="100"> Mobile-Number </th>
+            		<th width="250"> Client-Mail-ID </th>
+         		</thead>
+         	</table>
+               <table>
+        		{% for emp in DMName.list %}
+        		<tr>
+      		    <td width="90"> {{emp.Eno}} </td>
+     	      	<td width="200"> {{emp.Ename}} </td>
+      	      	<td width="200"> {{emp.BudgetArea}} </td>
+     	      	<td width="250"> {{emp.IBMMailID}} </td>
+     	      	<td width="100"> {{emp.OfficeNumber}} </td>
+     	      	<td width="100"> {{emp.MobileNumber}} </td>
+     	      	<td width="250"> {{emp.ClientMailID}} </td>
+    	      </tr>
+     	    {% endfor %}
+     	    </table>
+         {% endfor %}
+  	   {% endif %}
+  	      
+
+     <table  align="top">
+         <thead>        
+            <th> Budget Area </th>
+            <th> Count </th>
+         </thead>
+         {% for area in ba %}
+           <tr>
+      	      <td>{{area.BudgetArea}}</td>
+     	      <td>{{area.cnt}}</td>
+  	      </tr>
+     	  {% endfor %} 
+     </table>	
+{% endblock content %}
